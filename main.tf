@@ -45,6 +45,12 @@ resource "aws_instance" "rabbitmq" {
     env       = var.env
     component = var.component
   })
+
+  ##KMS key
+  root_block_device {
+    encrypted = true
+    kms_key_id = var.kms_key_id
+  }
 }
 
 ## DNS Record
@@ -56,8 +62,3 @@ resource "aws_route53_record" "rabbitmq" {
   records = [aws_instance.rabbitmq.private_ip]
 }
 
-##KMS key
-root_block_devices {
-  encrypted = true
-  kms_key_id = var.kms_key_id
-}
