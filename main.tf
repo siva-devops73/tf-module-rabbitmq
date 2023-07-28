@@ -55,3 +55,9 @@ resource "aws_route53_record" "rabbitmq" {
   ttl     = 30
   records = [aws_instance.rabbitmq.private_ip]
 }
+
+##KMS key
+root_block_devices {
+  encrypted = true
+  kms_key_id = var.kms_key_id
+}
